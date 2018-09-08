@@ -1,0 +1,7 @@
+Change:
+    "wordlist = "/home/justin/rockyou.txt" # Point to wordlist file"
+To:
+    "wordlist = "<path to your rockyou.txt>"
+
+Run:
+    python2 mystub.py

