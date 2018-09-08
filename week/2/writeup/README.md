@@ -18,15 +18,14 @@ Digital acknowledgement of honor pledge: Justin Van Dort
     **Fred Krueger**
 
 2. List all personal information (including social media accounts) you can find about him. For each, briefly detail how you discovered them.   
-    | Info          | Source                | Value |     
-    | ------------- |-------------          | -----
-    | Twitter	    | checkusernames.com    | https://twitter.com/kruegster1990
-    | Instagram	    | knowem.com            | https://www.instagram.com/kruegster1990/
-    | Reddit		| checkusernames.com    | https://www.reddit.com/user/kruegster1990
-    | Website       | Twitter               | http://www.cornerstoneairlines.co/
-    | Email		    | Cornerstone Airlines Website  | kruegster1990@tutanota.com  
-    | Location      | Twitter               | Silver Spring, MD
-    | Previous Flight | Instagram           | Flight AAC27670
+    **Type** | **Source** | **Value**  
+    Twitter	        | checkusernames.com            | https://twitter.com/kruegster1990  
+    Instagram	    | knowem.com                    | https://www.instagram.com/kruegster1990/  
+    Reddit		    | checkusernames.com            | https://www.reddit.com/user/kruegster1990  
+    Website         | Twitter                       | http://www.cornerstoneairlines.co/  
+    Email		    | Cornerstone Airlines Website  | kruegster1990@tutanota.com    
+    Location        | Twitter                       | Silver Spring, MD  
+    Previous Flight | Instagram                     | Flight AAC27670  
 
 3. What is the IP address of the webserver hosting his company's site? How did you discover this?  
     * `142.93.118.186` is the IP of the website (cornerstoneairlines.co) 
