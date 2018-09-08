@@ -18,20 +18,56 @@ NOTE: "briefly describe" = 2-3 sentences (and/or include screenshot(s))
 Use OSINT techniques to learn as much as you can about `kruegster1990` and answer the following questions:
 
 1. What is `kruegster1990`'s real name?
+    Fred Krueger
 
 2. List all personal information (including social media accounts) you can find about him. For each, briefly detail how you discovered them.
+    Twitter		checkusernames.com
+    Instagram	knowem.com
+    Reddit		checkusernames.com
+    Email		kruegster1990@tutanota.com - Via Cornerstone Airlines Webpage
+    From Silver Spring, MD Via Twitter
 
 3. What is the IP address of the webserver hosting his company's site? How did you discover this?
+    142.93.118.186 is the IP of the website (cornerstoneairlines.co) 
+        Discovered via `ping cornerstoneairlines.co`
+    142.93.117.193 is the IP address of the admin page (There is no domain name)
 
 4. List any hidden files or directories you found on this website. Did you find any flags?
+    I did not find any hidden subdirectories until I read this question. I opened robots.txt to find
+	a secret directory, http://www.cornerstoneairlines.co/secret/
+	Found flag: CMSC389R-{fly_th3_sk1es_w1th_u5}
 
 5. Did you find any other IP addresses associated with this website? What do they link to, or where did you find them?
+    142.93.117.193 is the IP address of the admin page. It was found by looking at the address
+    bar in chrome when visiting the admin page. 
 
 6. If you found any associated server(s), where are they located? How did you discover this?
+    Running at DigitalOcan in Canada (mxtoolbox.com)
 
 7. Which operating system is running on the associated server(s)? How did you discover this?
 
+
 8. **BONUS:** Did you find any other flags on your OSINT mission? (Up to 9 pts!)
+
+found flag in source of http://www.cornerstoneairlines.co/: CMSC389R-{h1dden_fl4g_in_s0urce} 
+
+Using "discover" domain search in DNS record: CMSC389R-{dns-txt-rec0rd-ftw}
+
+Via git repository: 
+
+dirb http://142.93.117.193/
+wget -r -F -v cornerstoneairlines.co/.git/
+	CMSC389R-{y0u_found_th3_g1t_repo}
+	kruegster@tutanota.com
+
+Via Brute force: 
+
+username: kruegster (username found from git repo email)
+password: pokemon
+
+Flight number: AAC27670 (From instagram)
+Path /home/flight_records
+CMSC389R-{c0rn3rstone-air-27670}
 
 ### Part 2
 
