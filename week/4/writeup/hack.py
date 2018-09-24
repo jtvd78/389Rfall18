@@ -64,7 +64,6 @@ def prompt(path):
 # > ls
 # Hello World! ...
 
-
 def shell():
     path = "/"
     prompt(path)
@@ -75,7 +74,10 @@ def shell():
         if command.startswith("cd "):
             path_part = command.split("cd", 1)[1].lstrip()
             if path_part.startswith("/"):
-                path = path_part
+                if is_directory(path_part):
+                    path = path_part
+                else:
+                    print("cd: " + path_part + ": No such file or directory")
             else:
                 temp_path = os.path.abspath(os.path.join(path, path_part))
                 if is_directory(temp_path):
@@ -97,8 +99,12 @@ def pull(remote, local):
         print("Remote file does not exist")
     else:
         response = send_command_bytes("cat " + remote)
-        f = open(local, "wb")
-        f.write(response)
+
+        try:
+            f = open(local, "wb")
+            f.write(response)
+        except: 
+            print("Error writing to local file: " + local)
 
 def pull_get_input(command):
 
@@ -111,10 +117,14 @@ def pull_get_input(command):
         print("Usage: pull <remote path> <local path>")
 
 def print_help():
-    print("'shell' - ")
-
- #  pull /opt/container_startup.sh /mnt/e/School/Y4S1/CMSC389R/389Rfall18/week/4/file.txt
+    print("Commands: ")
+    print("'quit' - Exit the program")
+    print("'help' - Display this meesage")
+    print("'shell' - Open interactive shell")
+    print("'pull <remote path> <local path>' - Copy remote file to local machine")
     
+print("Welcome to the Cornerstone Airlines mega hack terminal.")
+print("Enter 'help' for a list of commands.")
 
 for line in sys.stdin:
     command = line.strip()
@@ -123,9 +133,9 @@ for line in sys.stdin:
         shell()
     elif command.startswith("pull"):
         pull_get_input(command)
-    elif command == help:
-        print("HELP!")
+    elif command == "help":
+        print_help()
     elif command  == "quit":
         break
     else:
-        print("Usage")
+        print("Invalid command. Type 'help' for more information.")
