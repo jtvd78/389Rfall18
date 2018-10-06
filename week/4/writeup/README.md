@@ -31,4 +31,4 @@ Usage:
 
 run `./hack.py` or `python3 hack.py`. This script was written for python3. 
 
-After running the program, type `shell` for shell access to the server, and `exit` to exit the shell access. `pull <remote file> <local file>` fill transfer a remote file to the local machine. `help` shows a menu of all commands, and `quit` exits `hack.py`.
+After running the program, type `shell` for shell access to the server, and `exit` to exit the shell access. `pull <remote file> <local file>` will transfer a remote file to the local machine. `help` shows a menu of all commands, and `quit` exits `hack.py`.
