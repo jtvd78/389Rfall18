@@ -130,7 +130,6 @@ for i in range(0, 100):
         bork("Unsupported section type. Found: %d" % stype)
 
     print "SECTION %d, TYPE: %s, LENGTH: %d"  % (i , section_type(stype), slen)
-    print "OFFSET %d" % dat.offset
     
     if stype == 1:
         dat.read_png(slen, "extracted%d.png" % i)
