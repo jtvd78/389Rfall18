@@ -1,14 +1,16 @@
 #!/usr/bin/env python
-#-*- coding:utf-8 -*-
 
-# importing a useful library -- feel free to add any others you find necessary
 import hashlib
 import string
-import binascii
 
 hashes = []
 salts = string.ascii_lowercase
 
+def bruteforce(password):
+    for salt in salts:
+        result = hashlib.sha512(salt+password).hexdigest()
+        if result in hashes:
+            print("Password: %s, Salt %s" % (password, salt))
 
 with open("hashes") as fp:
     line = fp.readline()
@@ -16,25 +18,8 @@ with open("hashes") as fp:
         hashes.append(line.replace('\n',''))
         line = fp.readline()
 
-def hash(password, salt):
-    input = salt + password
-  #  print(input)
-    binary = bin(int(binascii.hexlify(input),16))
-    return hashlib.sha512(binary).hexdigest()
-
-
-def bruteforce(password):
-    
-    for salt in salts:
-        result = hash(password, salt)
-   #     print(result)
-        if result in hashes:
-            print("Found password!")
-
-
 with open("pwd.txt") as fp:
     line = fp.readline()
     while line:
         bruteforce(line.replace('\n', ''))
         line = fp.readline()
-
