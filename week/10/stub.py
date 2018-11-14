@@ -133,7 +133,7 @@ for secret_bytes in range(8, 15+1):
     # print(payload)
     # print(binascii.hexlify(payload))
 
-    # msg = msg_encode(payload)
+    msg = msg_encode(payload)
 
     # print(msg)
     # print(binascii.hexlify(msg + "\n"))
