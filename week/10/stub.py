@@ -4,9 +4,10 @@ import md5py
 import socket
 import struct
 import codecs
+import binascii
 
-message = 'Hello'    # original message here
-malicious = 'malicious_message'  # put your malicious message here
+message = 'CMSC389R Rocks!'    # original message here
+malicious = ''  # put your malicious message here
 
 #####################################
 ### STEP 1: Calculate forged hash ###
@@ -47,7 +48,7 @@ fake_md5 = md5py.new('A' * 64)
 fake_md5.A, fake_md5.B, fake_md5.C, fake_md5.D = md5py._bytelist2long(legit.decode('hex'))
 
 # update legit hash with malicious message
-fake_md5.update(malicious)
+#fake_md5.update(malicious)
 
 # fake_hash is the hash for md5(secret + message + padding + malicious)
 fake_hash = fake_md5.hexdigest()
@@ -73,14 +74,21 @@ def hex4(num):
         return 'f'
     return str(num)
 
+import sys
+
 # Encode a message with \x
 def msg_encode(msg):
     out = ''
-    for i in msg:
-        (val,) = struct.unpack('B', i)
-        out += '\\x'
-        out += hex4(val >> 4)
-        out += hex4(val & 0xF)
+    for i in msg:     
+
+        if ord(i) != 0 and ord(i) < 127 and ord(i) > 31:
+            out += i
+        else:
+            (val,) = struct.unpack('B', i)
+            out += '\\x'
+            out += hex4(val >> 4)
+            out += hex4(val & 0xF)
+
     return out
 
 # Try difference secret sizes. 
@@ -96,13 +104,8 @@ for secret_bytes in range(8, 15+1):
     # (i.e. len(secret + message + padding) = 64 bytes = 512 bits
 
     # Select 'Test a signature's validity'
-    
     readlines(f, 6)
     s.send("2\n")
-
-
-
-    
 
     # Send fake hash
     readlines(f, 3)
@@ -111,7 +114,7 @@ for secret_bytes in range(8, 15+1):
     # Calculate padding
     # Block Size - (Secret Size) - len(0x80) - len(message) - (8 bytes for message length)
     zero_bytes = 64 - secret_bytes - 1 - len(message) - 8
-    padding = '\x80' + '\x00' * zero_bytes + struct.pack('<q', len(message))
+    padding = '\x80' + '\x00' * zero_bytes + struct.pack('<q', len(message)*8)
 
     # payload is the message that corresponds to the hash in `fake_hash`
     # server will calculate md5(secret + payload)
@@ -119,7 +122,26 @@ for secret_bytes in range(8, 15+1):
     #                     = fake_hash
     payload = message + padding + malicious
 
+    # A bunch of prints I'm using to debug
+    # print("MESSAGE LEN")
+    # print(len(message))
+    # print(len(message) * 8)
+    # print( struct.pack('<q', len(message)*8))
+    # print(len(struct.pack('<q', len(message)*8)))
+    # print(len(message + padding + malicious))
+    # print(len(payload))
+    # print(payload)
+    # print(binascii.hexlify(payload))
+
+    # msg = msg_encode(payload)
+
+    # print(msg)
+    # print(binascii.hexlify(msg + "\n"))
+    # print(len(msg)/4)
+
     # Sent payload. Wait for user to try next secret size. 
-    s.send(msg_encode(payload) + "\n")
+    sent = s.send(msg + "\n")
+    # sent = s.send(payload + "\n")
+    #  print sent
     readlines(f, 10)
     raw_input()
