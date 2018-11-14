@@ -6,14 +6,14 @@ import md5py
 ### STEP 1: Calculate forged hash ###
 #####################################
 
-message = ''    # original message here
-legit = ''      # a legit hash of secret + message goes here, obtained from signing a message
+message = 'Hello'    # original message here
+legit = 'a02ada15fe3e220e37ed5f139ba0cf0f'      # a legit hash of secret + message goes here, obtained from signing a message
 
 # initialize hash object with state of a vulnerable hash
 fake_md5 = md5py.new('A' * 64)
 fake_md5.A, fake_md5.B, fake_md5.C, fake_md5.D = md5py._bytelist2long(legit.decode('hex'))
 
-malicious = ''  # put your malicious message here
+malicious = 'malicious_message'  # put your malicious message here
 
 # update legit hash with malicious message
 fake_md5.update(malicious)
