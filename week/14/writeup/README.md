@@ -14,3 +14,8 @@ Digital acknowledgement of honor pledge: *PUT YOUR NAME HERE*
 
 
 ### Part 2 (30 Pts)
+
+1)
+
+```
+<script>alert('XSS')</script>
