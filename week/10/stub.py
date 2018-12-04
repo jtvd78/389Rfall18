@@ -48,7 +48,7 @@ fake_md5 = md5py.new('A' * 64)
 fake_md5.A, fake_md5.B, fake_md5.C, fake_md5.D = md5py._bytelist2long(legit.decode('hex'))
 
 # update legit hash with malicious message
-#fake_md5.update(malicious)
+fake_md5.update(malicious)
 
 # fake_hash is the hash for md5(secret + message + padding + malicious)
 fake_hash = fake_md5.hexdigest()
